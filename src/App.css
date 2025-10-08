@@ -7,8 +7,9 @@
 }
 
 body{
-  animation: rgbStrobeFreak 2s infinite ease-in-out alternate;
-  overflow: hidden;
+  /* animation: rgbStrobeFreak 2s infinite ease-in-out alternate;
+  overflow: hidden; */
+  margin: 0;
 }
 
 .container {
