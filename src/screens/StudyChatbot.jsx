@@ -154,7 +154,7 @@ export default function StudyChatbot() {
     <div className="chat-wrapper">
       <header className="header">
         <h1 className="title">
-          🎓 <span className="title-text">Gemini Study Tutor</span>
+          🎓 <span className="title-text">NatGPT</span>
         </h1>
         <div className="user-controls">
           {user ? (
