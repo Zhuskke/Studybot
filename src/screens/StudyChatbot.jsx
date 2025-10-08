@@ -10,7 +10,6 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-
 import { callGeminiApi } from "../components/GeminiApi";
 import { ChatMessage } from "../components/ChatMessage";
 
@@ -27,7 +26,6 @@ export default function StudyChatbot() {
   const SYSTEM_PROMPT =
     "You are a world-class, supportive, and knowledgeable **educational assistant (Gemini Study Tutor)**. You are limited to academic and study topics only (science, history, coding, literature, etc.). Decline politely if asked anything non-academic.";
 
-  // --- Firebase Auth Listener ---
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -36,7 +34,6 @@ export default function StudyChatbot() {
     return () => unsubscribe();
   }, []);
 
-  // --- Load Firestore Chat History if Logged In ---
   useEffect(() => {
     if (db && user) {
       const chatRef = collection(
@@ -58,17 +55,14 @@ export default function StudyChatbot() {
       });
       return () => unsubscribe();
     } else {
-      // Guest mode → clear stored messages from Firestore (local only)
       setMessages([]);
     }
   }, [db, user, appId]);
 
-  // --- Auto Scroll to Bottom ---
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // --- Send Message ---
   const sendMessage = useCallback(
     async (e) => {
       e.preventDefault();
@@ -78,7 +72,6 @@ export default function StudyChatbot() {
       setInput("");
       setLoading(true);
 
-      // Show user message immediately
       const newUserMessage = {
         id: Date.now(),
         role: "user",
@@ -87,7 +80,6 @@ export default function StudyChatbot() {
       };
       setMessages((prev) => [...prev, newUserMessage]);
 
-      // Save message to Firestore only if logged in
       if (user && db) {
         const chatRef = collection(
           db,
@@ -105,7 +97,6 @@ export default function StudyChatbot() {
         });
       }
 
-      // Call Gemini API
       const { text: reply, sources } = await callGeminiApi(
         [{ role: "user", text }],
         SYSTEM_PROMPT
@@ -119,10 +110,8 @@ export default function StudyChatbot() {
         timestamp: new Date(),
       };
 
-      // Show AI reply
       setMessages((prev) => [...prev, newAiMessage]);
 
-      // Save AI reply to Firestore only if logged in
       if (user && db) {
         const chatRef = collection(
           db,
@@ -145,13 +134,11 @@ export default function StudyChatbot() {
     [input, loading, db, user, appId]
   );
 
-  // --- Logout ---
   const handleLogout = async () => {
     await signOut(auth);
     setMessages([]);
   };
 
-  // --- Loading Screen ---
   if (!isAuthReady) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -162,24 +149,22 @@ export default function StudyChatbot() {
     );
   }
 
-  // --- Main Chat UI (works for both logged & guest users) ---
   return (
     <div className="min-h-screen bg-gray-50 font-sans flex flex-col">
-      <div className="flex flex-col flex-1 w-full max-w-3xl mx-auto bg-white shadow-sm rounded-lg">
-        {/* Header */}
-        <header className="p-4 bg-white text-black border-b border-gray-300 flex justify-between items-center">
-          <h1 className="text-xl font-bold flex items-center">
-            🎓 Gemini Study Tutor
+      <div className="flex flex-col flex-1 w-full max-w-3xl mx-auto bg-white shadow-md rounded-lg px-2 sm:px-4">
+        <header className="p-4 bg-white text-black border-b border-gray-200 flex justify-between items-center shadow-sm sticky top-0 z-10">
+          <h1 className="text-xl font-bold flex items-center gap-2">
+            🎓 <span className="tracking-tight">Gemini Study Tutor</span>
           </h1>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center gap-4">
             {user ? (
               <>
                 <span className="text-sm text-gray-600">
-                  Logged in as <strong>{user.email || "User"}</strong>
+                  Logged in as <strong>{user.email}</strong>
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="text-sm text-red-500 hover:underline"
+                  className="text-sm text-red-600 hover:text-red-800 transition"
                 >
                   Logout
                 </button>
@@ -195,8 +180,7 @@ export default function StudyChatbot() {
           </div>
         </header>
 
-        {/* Chat Messages */}
-        <main className="flex-1 p-4 overflow-y-auto flex flex-col space-y-3 h-[70vh]">
+        <main className="flex-1 p-4 overflow-y-auto space-y-3 h-[70vh]">
           {!user && (
             <div className="text-center text-gray-500 text-sm mb-2">
               ⚠️ You are in <strong>Guest Mode</strong> — chat history won’t be
@@ -220,24 +204,23 @@ export default function StudyChatbot() {
           <div ref={messagesEndRef} />
         </main>
 
-        {/* Input Box */}
         <footer className="p-4 border-t border-gray-300 bg-white">
           <form
             onSubmit={sendMessage}
-            className="flex space-x-3 items-center justify-between"
+            className="flex space-x-3 items-center"
           >
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask a study question..."
-              className="flex-1 p-2 border border-gray-400 rounded-lg focus:border-black outline-none"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="p-2 px-4 bg-black text-white rounded-lg hover:bg-gray-800 transition disabled:opacity-50"
+              className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition disabled:opacity-50"
             >
               Send
             </button>
