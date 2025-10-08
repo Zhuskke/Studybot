@@ -8,6 +8,7 @@
 
 body{
   animation: rgbStrobeFreak 2s infinite ease-in-out alternate;
+  overflow: hidden;
 }
 
 .container {
@@ -23,7 +24,6 @@ body{
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.3);
   pointer-events: none;
   z-index: -1;
 }
