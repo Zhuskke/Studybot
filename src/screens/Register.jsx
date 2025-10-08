@@ -1,8 +1,8 @@
-// src/screens/Register.jsx
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../FirebaseConfig";
 import { Link, useNavigate } from "react-router-dom";
+import "./css/Login.css";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -21,20 +21,18 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-4 text-center text-black">
-          Register
-        </h2>
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+    <div className="login-container">
+      <div className="login-box">
+        <h2 className="login-title">Create Account</h2>
+        {error && <p className="login-error">{error}</p>}
 
-        <form onSubmit={handleRegister} className="space-y-4">
+        <form onSubmit={handleRegister} className="login-form">
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded-lg border-gray-400 focus:border-black"
+            className="login-input"
             required
           />
           <input
@@ -42,20 +40,17 @@ export default function Register() {
             placeholder="Password (min. 6 characters)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded-lg border-gray-400 focus:border-black"
+            className="login-input"
             required
           />
-          <button
-            type="submit"
-            className="w-full bg-black text-white p-2 rounded-lg hover:bg-gray-800"
-          >
+          <button type="submit" className="login-button">
             Register
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
+        <p className="login-footer">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="login-link">
             Login
           </Link>
         </p>
