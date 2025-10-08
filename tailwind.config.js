@@ -1,5 +1,5 @@
-// tailwind.config.js
-module.exports = {
+// tailwind.config.js (ESM version)
+export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,7 +7,6 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
       },
     },
   },
