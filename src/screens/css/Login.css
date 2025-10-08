@@ -149,7 +149,7 @@
 
 .login-link:hover {
   text-decoration: underline;
-  color: #a5b4fc;
+  color: white;
   transition: .2s ease-in-out;
 }
 
