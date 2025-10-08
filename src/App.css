@@ -7,7 +7,7 @@
 }
 
 body{
-  animation: rgbStrobe 6s linear infinite;
+  animation: rgbStrobeFreak 2s infinite ease-in-out alternate;
 }
 
 .container {
@@ -15,12 +15,10 @@ body{
   display: flex;
   justify-content: center;
   padding: 1rem;
-  /* overlay a slight dark transparent layer so text is readable */
   position: relative;
   z-index: 0;
 }
 
-/* Overlay for readability */
 .container::before {
   content: "";
   position: fixed;
@@ -30,7 +28,6 @@ body{
   z-index: -1;
 }
 
-/* Main chat wrapper */
 .chat-wrapper {
   background: white;
   max-width: 600px;
@@ -43,7 +40,6 @@ body{
   animation: fadeInUp 0.8s ease forwards;
 }
 
-/* Fade in up animation for wrapper */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -55,7 +51,6 @@ body{
   }
 }
 
-/* Header styles */
 .header {
   background: white;
   border-bottom: 1px solid #ddd;
@@ -69,7 +64,6 @@ body{
   animation: slideInDown 0.6s ease forwards;
 }
 
-/* Slide in down */
 @keyframes slideInDown {
   from {
     opacity: 0;
@@ -87,10 +81,9 @@ body{
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  animation: glowColor 3s ease-in-out infinite alternate;
+  animation: glowSpinBlur 3s infinite ease-in-out;
 }
 
-/* Color glow animation on title */
 @keyframes glowColor {
   0% {
     color: #2563eb;
@@ -117,7 +110,6 @@ body{
   animation: fadeIn 1.2s ease forwards;
 }
 
-/* Fade in */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -133,7 +125,6 @@ body{
   animation: slideInRight 1s ease forwards;
 }
 
-/* Slide in right */
 @keyframes slideInRight {
   from {
     opacity: 0;
@@ -153,10 +144,11 @@ body{
   padding: 0.25rem 0.5rem;
   transition: color 0.2s ease, transform 0.2s ease;
   user-select: none;
+  animation: btnRave 2s infinite ease-in-out;
 }
 
 .logout-btn {
-  color: #dc2626; /* red */
+  color: #dc2626;
   animation: pulseRed 2s infinite;
 }
 
@@ -165,7 +157,6 @@ body{
   transform: scale(1.1);
 }
 
-/* Pulsing red */
 @keyframes pulseRed {
   0%, 100% {
     color: #dc2626;
@@ -178,7 +169,7 @@ body{
 }
 
 .login-btn {
-  color: #2563eb; /* blue */
+  color: #2563eb;
   text-decoration: underline;
   animation: pulseBlue 2s infinite;
 }
@@ -188,7 +179,6 @@ body{
   transform: scale(1.1);
 }
 
-/* Pulsing blue */
 @keyframes pulseBlue {
   0%, 100% {
     color: #2563eb;
@@ -200,7 +190,6 @@ body{
   }
 }
 
-/* Main chat content */
 .chat-main {
   display: flex;
   flex-direction: column;
@@ -208,23 +197,21 @@ body{
   overflow-y: auto;
   height: 76vh;
   padding: 0rem 1rem;
+  animation: jitter 0.3s infinite;
 }
 
-/* Animate messages on appear */
 .chat-main > * {
   animation: fadeIn 0.5s ease forwards;
 }
 
-/* Guest warning */
 .guest-warning {
   font-size: 0.875rem;
-  color: #6b7280; /* gray-500 */
+  color: #6b7280;
   text-align: center;
   margin-bottom: 0.5rem;
   animation: slideInUp 1s ease forwards;
 }
 
-/* Slide in up */
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -236,7 +223,6 @@ body{
   }
 }
 
-/* Empty state message with shake */
 .empty-message {
   text-align: center;
   margin-top: 5rem;
@@ -245,7 +231,6 @@ body{
   animation: shake 0.8s ease infinite;
 }
 
-/* Shake animation */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-5px); }
@@ -253,7 +238,6 @@ body{
   75% { transform: translateX(-5px); }
 }
 
-/* Loading text */
 .loading {
   font-size: 0.875rem;
   color: #6b7280;
@@ -261,18 +245,18 @@ body{
   align-self: flex-start;
 }
 
-/* Animation for loading pulse */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
 
-/* Footer and input form */
 .footer {
   padding: 1rem 1.5rem;
   border-top: 1px solid #ddd;
   background: white;
   animation: fadeInUp 0.8s ease forwards;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+  animation: pulseFooter 2s infinite alternate;
 }
 
 .input-form {
@@ -281,12 +265,11 @@ body{
   align-items: center;
 }
 
-/* Text input styles */
 .text-input {
   flex: 1;
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
-  border-radius: 9999px; /* pill shape */
+  border-radius: 9999px;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -304,7 +287,6 @@ body{
   opacity: 0.6;
 }
 
-/* Send button styles */
 .send-btn {
   background-color: #2563eb;
   color: white;
@@ -313,7 +295,7 @@ body{
   font-weight: 600;
   transition: background-color 0.2s ease, transform 0.3s ease;
   cursor: pointer;
-  animation: fadeIn 1.5s ease forwards;
+  animation: bounce 2.5s infinite ease-in-out, btnRave 2s infinite ease-in-out;
 }
 
 .send-btn:hover:not(:disabled) {
@@ -322,75 +304,63 @@ body{
   box-shadow: 0 4px 12px rgba(30, 64, 175, 0.6);
 }
 
-/* Bounce animation on send button when enabled */
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.send-btn:not(:disabled) {
-  animation: bounce 2.5s infinite ease-in-out;
-}
-
 .send-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   animation: none;
 }
 
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+   50% {
+    transform: translateY(-5px);
+  }
+}
 
-/* Container for each message */
 .message-container {
   display: flex;
   margin-bottom: 1rem;
   width: 100%;
 }
 
-/* User messages aligned to right */
 .message-container.user {
   justify-content: flex-end;
 }
 
-/* Model (Gemini) messages aligned to left */
 .message-container.model {
   justify-content: flex-start;
 }
 
-/* Inner content wrapper */
 .message-content {
   display: flex;
   flex-direction: column;
   max-width: 75%;
 }
 
-/* Chat bubble base style */
 .message-bubble {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   line-height: 1.3;
   border-radius: 20px;
-  white-space: pre-wrap; /* preserve line breaks */
+  white-space: pre-wrap;
+  animation: chatBounceSkew 1.5s infinite ease-in-out;
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
 
-/* User bubble style */
 .user-bubble {
   background-color: #2563eb;
   color: white;
   border-bottom-right-radius: 0;
 }
 
-/* Model bubble style */
 .model-bubble {
   background-color: #e5e7eb;
   color: #111;
   border-bottom-left-radius: 0;
 }
 
-/* Sources container */
 .message-sources {
   margin-top: 0.25rem;
   font-size: 0.75rem;
@@ -401,13 +371,11 @@ body{
   gap: 0.5rem;
 }
 
-/* Sources label */
 .sources-label {
   font-weight: 600;
   margin-right: 0.25rem;
 }
 
-/* Source links */
 .source-link {
   color: #4b5563;
   text-decoration: none;
@@ -415,4 +383,77 @@ body{
 
 .source-link:hover {
   text-decoration: underline;
+}
+
+/* ✨ Freaky Animations Below ✨ */
+
+@keyframes rgbStrobeFreak {
+  0%   { background-color: red; transform: rotate(0deg) scale(1); filter: brightness(1.2); }
+  20%  { background-color: lime; transform: rotate(1deg) scale(1.02); filter: brightness(1.4); }
+  40%  { background-color: blue; transform: rotate(-1deg) scale(1); filter: brightness(1); }
+  60%  { background-color: yellow; transform: rotate(2deg) scale(1.03); filter: brightness(1.5); }
+  80%  { background-color: magenta; transform: rotate(-2deg) scale(0.98); filter: brightness(0.8); }
+  100% { background-color: cyan; transform: rotate(0deg) scale(1); filter: brightness(1.2); }
+}
+
+@keyframes glowSpinBlur {
+  0% {
+    transform: rotate(0deg) scale(1);
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    filter: blur(0px);
+  }
+  25% {
+    transform: rotate(5deg) scale(1.1);
+    color: #00ffff;
+    text-shadow: 0 0 15px #00ffff;
+    filter: blur(1px);
+  }
+  50% {
+    transform: rotate(-5deg) scale(1.05);
+    color: #ffff00;
+    text-shadow: 0 0 20px #ffff00;
+    filter: blur(0.5px);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.2);
+    color: #ff0000;
+    text-shadow: 0 0 25px #ff0000;
+    filter: blur(2px);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    filter: blur(0px);
+  }
+}
+
+@keyframes chatBounceSkew {
+  0%   { transform: scale(1) skew(0deg, 0deg); }
+  25%  { transform: scale(1.05) skew(3deg, -3deg); }
+  50%  { transform: scale(0.95) skew(-3deg, 3deg); }
+  75%  { transform: scale(1.08) skew(2deg, -2deg); }
+  100% { transform: scale(1) skew(0deg, 0deg); }
+}
+
+@keyframes btnRave {
+  0% { transform: rotate(0deg) scale(1); }
+  20% { transform: rotate(3deg) scale(1.1); }
+  40% { transform: rotate(-3deg) scale(0.9); }
+  60% { transform: rotate(5deg) scale(1.05); }
+  80% { transform: rotate(-5deg) scale(1.15); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes pulseFooter {
+  0% { box-shadow: 0 0 10px rgba(37, 99, 235, 0.2); }
+  100% { box-shadow: 0 0 25px rgba(37, 99, 235, 1); }
+}
+
+@keyframes jitter {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
 }
