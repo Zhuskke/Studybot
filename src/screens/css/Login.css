@@ -140,7 +140,7 @@
 }
 
 .login-link {
-  color: #2563eb;
+  color: #493252;
   text-decoration: none;
   font-weight: 700;
   font-family: "Rubik", sans-serif;
@@ -149,7 +149,7 @@
 
 .login-link:hover {
   text-decoration: underline;
-  color: #520380;
+  color: #a5b4fc;
   transition: .2s ease-in-out;
 }
 
