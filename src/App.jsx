@@ -9,6 +9,8 @@ import {
 import Login from "./screens/Login";
 import Register from "./screens/Register";
 import StudyChatbot from "./screens/StudyChatbot";
+import "./App.css";
+
 
 export default function App() {
   return (

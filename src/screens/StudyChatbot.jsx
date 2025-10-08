@@ -149,84 +149,71 @@ export default function StudyChatbot() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50 font-sans flex flex-col">
-      <div className="flex flex-col flex-1 w-full max-w-3xl mx-auto bg-white shadow-md rounded-lg px-2 sm:px-4">
-        <header className="p-4 bg-white text-black border-b border-gray-200 flex justify-between items-center shadow-sm sticky top-0 z-10">
-          <h1 className="text-xl font-bold flex items-center gap-2">
-            🎓 <span className="tracking-tight">Gemini Study Tutor</span>
-          </h1>
-          <div className="flex items-center gap-4">
-            {user ? (
-              <>
-                <span className="text-sm text-gray-600">
-                  Logged in as <strong>{user.email}</strong>
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="text-sm text-red-600 hover:text-red-800 transition"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={() => navigate("/login")}
-                className="text-sm text-blue-600 hover:underline"
-              >
-                Log in
+ return (
+  <div className="container">
+    <div className="chat-wrapper">
+      <header className="header">
+        <h1 className="title">
+          🎓 <span className="title-text">Gemini Study Tutor</span>
+        </h1>
+        <div className="user-controls">
+          {user ? (
+            <>
+              <span className="user-info">
+                Logged in as <strong>{user.email}</strong>
+              </span>
+              <button onClick={handleLogout} className="btn logout-btn">
+                Logout
               </button>
-            )}
-          </div>
-        </header>
-
-        <main className="flex-1 p-4 overflow-y-auto space-y-3 h-[70vh]">
-          {!user && (
-            <div className="text-center text-gray-500 text-sm mb-2">
-              ⚠️ You are in <strong>Guest Mode</strong> — chat history won’t be
-              saved.
-            </div>
-          )}
-
-          {messages.length === 0 && !loading ? (
-            <div className="text-gray-500 text-center mt-20">
-              Ask your Gemini Tutor about academic topics.
-            </div>
+            </>
           ) : (
-            messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)
-          )}
-
-          {loading && (
-            <div className="flex justify-start text-sm text-gray-500 animate-pulse">
-              Tutor is thinking...
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </main>
-
-        <footer className="p-4 border-t border-gray-300 bg-white">
-          <form
-            onSubmit={sendMessage}
-            className="flex space-x-3 items-center"
-          >
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask a study question..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-              disabled={loading}
-            />
-            <button
-              type="submit"
-              disabled={loading || !input.trim()}
-              className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition disabled:opacity-50"
-            >
-              Send
+            <button onClick={() => navigate("/login")} className="btn login-btn">
+              Log in
             </button>
-          </form>
-        </footer>
-      </div>
+          )}
+        </div>
+      </header>
+
+      <main className="chat-main">
+        {!user && (
+          <div className="guest-warning">
+            ⚠️ You are in <strong>Guest Mode</strong> — chat history won’t be saved.
+          </div>
+        )}
+
+        {messages.length === 0 && !loading ? (
+          <div className="empty-message">
+            Ask your Gemini Tutor about academic topics.
+          </div>
+        ) : (
+          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)
+        )}
+
+        {loading && (
+          <div className="loading">
+            Tutor is thinking...
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </main>
+
+      <footer className="footer">
+        <form onSubmit={sendMessage} className="input-form">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask a study question..."
+            disabled={loading}
+            className="text-input"
+          />
+          <button type="submit" disabled={loading || !input.trim()} className="btn send-btn">
+            Send
+          </button>
+        </form>
+      </footer>
     </div>
-  );
+  </div>
+);
+
 }
