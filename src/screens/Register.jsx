@@ -70,6 +70,11 @@ export default function Register() {
               Login
             </Link>
           </p>
+          <p>
+            <Link to="/" className="login-link">
+              Back
+            </Link>
+          </p>
         </div>
       </div>
     </div>

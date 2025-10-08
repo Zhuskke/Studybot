@@ -45,7 +45,7 @@ export default function Login() {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="Password"
                 className="login-input"
                 required
               />
@@ -66,6 +66,11 @@ export default function Login() {
           Don’t have an account?{" "}
           <Link to="/register" className="login-link">
             Register
+          </Link>
+        </p>
+        <p>
+          <Link to="/" className="login-link">
+            Back
           </Link>
         </p>
       </div>
